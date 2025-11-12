@@ -69,6 +69,6 @@
 
                CLOSE SQNC7-FILE
 
-           END-IF
+           END-IF.
          
            STOP RUN.
