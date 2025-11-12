@@ -55,5 +55,32 @@
                MOVE SEQ5_STORE_TOTAL_SALES TO SEQ5_STORE_TOTAL_SALES_FH.
                WRITE SQNC5_RECORD.
            CLOSE SQNC5-FILE.
+
+           DISPLAY "VIEW  HISTORY? (Y): " WITH NO ADVANCING.
+           ACCEPT SEQ5_HISTORY.
+
+           IF  SEQ5_HISTORY = "Y" OR SEQ5_HISTORY = "y"
+               MOVE "N" TO SEQ5_EOF
+               OPEN INPUT SQNC5-FILE
+                   PERFORM UNTIL SEQ5_EOF = "Y"
+                       READ SQNC5-FILE
+                           AT END
+                               DISPLAY "END OF HISTORY"
+                               MOVE "Y" TO SEQ5_EOF
+
+                           NOT AT END
+                               DISPLAY "==============================="
+                               DISPLAY "NAME: " SEQ5_SALES_MAN_NAME_FH
+                               DISPLAY "NUMBER: " SEQ5_SALES_MAN_NUM_FH
+                               DISPLAY "UNITS SOLD" SEQ5_UNIT_SOLD_FH
+                               DISPLAY "UNIT PRICE" SEQ5_UNIT_PRICE_FH
+                               DISPLAY "TOTAL SALES" 
+-                                  SEQ5_STORE_TOTAL_SALES_FH
+                               DISPLAY "==============================="
+                               DISPLAY SPACE
+                       END-READ
+                   END-PERFORM
+               CLOSE SQNC5-FILE
+           END-IF.
            
            STOP RUN.
