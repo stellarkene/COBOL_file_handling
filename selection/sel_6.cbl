@@ -1,0 +1,68 @@
+      *programmer name: Gabriel Sanchez 
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. REVISED_GRADES.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  SEL6_PRELIM_IN               PIC 9(3)V99.
+       
+       01  SEL6_MIDTERMS_IN             PIC 9(3)V99.
+       
+       01  SEL6_FINALS_IN               PIC 9(3)V99.
+       
+       01  SEL6_CALC_AVE                PIC 9(3)V99.
+       01  SEL6_AVE_OUT                 PIC Z(3).99.
+
+       PROCEDURE DIVISION.
+           DISPLAY "PLEASE INPUT PRELIM: " WITH NO ADVANCING.
+           ACCEPT SEL6_PRELIM_IN.
+
+           DISPLAY "PLEASE INPUT MIDTERMS: " WITH NO ADVANCING.
+           ACCEPT SEL6_MIDTERMS_IN.
+
+           DISPLAY "PLEASE INPUT FINALS: " WITH NO ADVANCING.
+           ACCEPT SEL6_FINALS_IN.
+
+           COMPUTE SEL6_CALC_AVE = 
+-              (SEL6_PRELIM_IN + SEL6_MIDTERMS_IN + SEL6_FINALS_IN) / 3.
+           MOVE SEL6_CALC_AVE TO SEL6_AVE_OUT.
+
+           DISPLAY "NUMERICAL GRADE: " SEL6_AVE_OUT.
+           
+           EVALUATE TRUE
+           WHEN SEL6_CALC_AVE > 100 
+               DISPLAY "GRADE EXCEEDED LIMIT."
+
+           WHEN SEL6_CALC_AVE >= 97 AND SEL6_CALC_AVE <= 100
+               DISPLAY "EQUIVALENT GRADE: 1.00"
+
+           WHEN SEL6_CALC_AVE >= 94 AND SEL6_CALC_AVE <= 96
+               DISPLAY "EQUIVALNET GRADE: 1.25"
+
+           WHEN SEL6_CALC_AVE >= 91 AND SEL6_CALC_AVE <= 93
+               DISPLAY "EQUIVALENT GRADE: 1.5"
+
+           WHEN SEL6_CALC_AVE >= 88 AND SEL6_CALC_AVE <= 90
+               DISPLAY "EQUIVALENT GRADE: 1.75"
+
+           WHEN SEL6_CALC_AVE >= 85 AND  SEL6_CALC_AVE <= 87
+               DISPLAY "EQUIVALENT GRADE: 2.00"
+
+           WHEN SEL6_CALC_AVE >= 82 AND SEL6_CALC_AVE <= 84
+               DISPLAY "EQUIVALENT GRADE: 2.25"
+
+           WHEN SEL6_CALC_AVE >= 79 AND SEL6_CALC_AVE <= 81
+               DISPLAY "EQUIVALENT GRADE: 2.5"
+
+           WHEN SEL6_CALC_AVE >= 76 AND SEL6_CALC_AVE <= 78
+               DISPLAY "EQUIVALENT GRADE: 2.75" 
+
+           WHEN SEL6_CALC_AVE = 75
+               DISPLAY "EQUIVALENT GRADE: 3.00"
+
+           WHEN OTHER 
+               DISPLAY "EQUIVALENT GRADE: 5.00"
+               
+           END-EVALUATE.
+           
+           STOP RUN.

@@ -1,0 +1,34 @@
+      *programmer name: Gabriel Sanchez 
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. LARGER-OF-TWO.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  SEL4_FIRST_INPUT         PIC 9(5).
+       01  SEL4_FIRST_INPUT_OUT     PIC Z(5).
+       01  SEL4_SEC_INPUT           PIC 9(5).
+       01  SEL4_SEC_INPUT_OUT       PIC Z(5).
+
+       PROCEDURE DIVISION.
+           DISPLAY "PLEASE ENTER A NUMBER: " WITH NO ADVANCING.
+           ACCEPT SEL4_FIRST_INPUT.
+           MOVE SEL4_FIRST_INPUT TO SEL4_FIRST_INPUT_OUT.
+
+           DISPLAY "PLEASE ENTER ANOTHER NUMBER: " WITH NO ADVANCING.
+           ACCEPT SEL4_SEC_INPUT.
+           MOVE SEL4_SEC_INPUT TO SEL4_SEC_INPUT_OUT.
+
+           EVALUATE TRUE
+           WHEN SEL4_FIRST_INPUT > SEL4_SEC_INPUT
+               DISPLAY SEL4_FIRST_INPUT_OUT " IS GREATER THAN " 
+-                  SEL4_SEC_INPUT_OUT
+
+           WHEN SEL4_FIRST_INPUT < SEL4_SEC_INPUT
+               DISPLAY SEL4_SEC_INPUT_OUT " IS GREATER THAN "
+-                  SEL4_FIRST_INPUT_OUT
+
+           WHEN 
+               DISPLAY "INPUTS ARE EQUAL"
+               
+           END-EVALUATE.
+           STOP RUN.
