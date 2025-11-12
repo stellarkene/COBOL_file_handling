@@ -18,7 +18,7 @@
            05  SEQ6_PRELIM_FH     PIC ZZ9.99.
            05  SEQ6_MIDTERM_FH    PIC ZZ9.99.
            05  SEQ6_FINALS_FH     PIC ZZ9.99.
-           05  SEQ6_AVERAGE_FH    PIC Z99.99.
+           05  SEQ6_AVERAGE_FH    PIC ZZ9.99.
 
        WORKING-STORAGE SECTION.
        01  SEQ6_Prelim     PIC 9(3).
@@ -50,6 +50,33 @@
 
                WRITE SQNC6_RECORD.
            CLOSE SQNC6-FILE.
+
+           DISPLAY "VIEW  HISTORY? (Y): " WITH NO ADVANCING.
+           ACCEPT SEQ6_HISTORY.
+
+           IF SEQ6_HISTORY = "Y" OR SEQ6_HISTORY = "y"
+               MOVE "N" TO SEQ6_EOF
+               OPEN INPUT SQNC6-FILE  
+
+               PERFORM UNTIL SEQ6_EOF = "Y"
+                   READ SQNC6-FILE
+                       AT END
+                           DISPLAY "END OF HISTORY"
+                           MOVE "Y" TO SEQ6_EOF
+
+                       NOT AT END
+                           DISPLAY "==============================="
+                           DISPLAY "PRELIM: " SEQ6_PRELIM_FH
+                           DISPLAY "MIDTERMS: " SEQ6_MIDTERM_FH
+                           DISPLAY "FINALS: " SEQ6_FINALS_FH
+                           DISPLAY "AVERAGE: " SEQ6_AVERAGE_FH
+                           DISPLAY "==============================="
+                           DISPLAY SPACE
+                   END-READ
+               END-PERFORM
+
+           CLOSE SQNC6-FILE
+           END-IF.
 
 
            STOP RUN.
