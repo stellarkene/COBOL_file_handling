@@ -1,14 +1,34 @@
-            *programmer name: Gabriel Sanchez 
+      *programmer name: Gabriel Sanchez 
        IDENTIFICATION DIVISION.
        PROGRAM-ID. SALES-MAN-INFO.
 
+       ENVIRONMENT DIVISION.
+           INPUT-OUTPUT SECTION.
+               FILE-CONTROL.
+
+           SELECT SQNC5-FILE ASSIGN TO "sqnc_5.dat"
+-                  ORGANIZATION IS LINE SEQUENTIAL.  
+
        DATA DIVISION.
+       FILE SECTION.
+           FD SQNC5-FILE.
+
+       01  SQNC5_RECORD.
+           05  SEQ5_SALES_MAN_NUM_FH           PIC X(12).
+           05  SEQ5_SALES_MAN_NAME_FH          PIC X(25).
+           05  SEQ5_UNIT_SOLD_FH               PIC ZZ,ZZ9.
+           05  SEQ5_UNIT_PRICE_FH              PIC ZZ,ZZ9.99.
+           05  SEQ5_STORE_TOTAL_SALES_FH       PIC $Z,ZZZ,ZZZ,ZZ9.
+
+
        WORKING-STORAGE SECTION.
-       01  SEQ5_SALES_MAN_NUM     PIC 9(12).
-       01  SEQ5_SALES_MAN_NAME    PIC X(25).
-       01  SEQ5_UNIT_SOLD         PIC 9(5).
-       01  SEQ5_UNIT_PRICE        PIC 9(5)v99.
-       01  SEQ5_STORE_TOTAL_SALES PIC $ZZ,ZZ9.
+       01  SEQ5_SALES_MAN_NUM          PIC 9(12).
+       01  SEQ5_SALES_MAN_NAME         PIC X(25).
+       01  SEQ5_UNIT_SOLD              PIC 9(5).
+       01  SEQ5_UNIT_PRICE             PIC 9(5)v99.
+       01  SEQ5_STORE_TOTAL_SALES      PIC $Z,ZZZ,ZZZ,ZZ9.
+       01  SEQ5_EOF                    PIC X VALUE "N".
+       01  SEQ5_HISTORY                PIC X VALUE "N".
 
        PROCEDURE DIVISION.
            DISPLAY "PLEASE INPUT NAME: " WITH NO ADVANCING.
@@ -26,5 +46,14 @@
            COMPUTE SEQ5_STORE_TOTAL_SALES = 
 -              SEQ5_UNIT_SOLD * SEQ5_UNIT_PRICE.
            DISPLAY "TOTAL SALES: " SEQ5_STORE_TOTAL_SALES.
+
+           OPEN EXTEND SQNC5-FILE.
+               MOVE SEQ5_SALES_MAN_NUM TO SEQ5_SALES_MAN_NUM_FH.
+               MOVE SEQ5_SALES_MAN_NAME TO SEQ5_SALES_MAN_NAME_FH.
+               MOVE SEQ5_UNIT_SOLD TO SEQ5_UNIT_SOLD_FH.
+               MOVE SEQ5_UNIT_PRICE TO SEQ5_UNIT_PRICE_FH.
+               MOVE SEQ5_STORE_TOTAL_SALES TO SEQ5_STORE_TOTAL_SALES_FH.
+               WRITE SQNC5_RECORD.
+           CLOSE SQNC5-FILE.
            
            STOP RUN.
