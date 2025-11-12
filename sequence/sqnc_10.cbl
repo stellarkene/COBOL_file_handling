@@ -1,0 +1,38 @@
+      *Programmer Name: Gabriel Sanchez.
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TRIANGLE.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  SEQ10_SIDE_A      PIC 9(3).
+       01  SEQ10_SIDE_B      PIC 9(3).
+       01  SEQ10_SIDE_C      PIC 9(3).
+       01  SEQ10_T_BASE      PIC 9(3).
+       01  SEQ10_T_HEIGHT    PIC 9(3).
+
+       01  SEQ10_T_AREA      PIC 9(3)V99.
+       01  SEQ10_T_PERI      PIC 9(3)V99.
+
+       PROCEDURE DIVISION.
+           DISPLAY "INPUT BASE: " WITH NO ADVANCING.
+           ACCEPT SEQ10_T_BASE.
+
+           DISPLAY "INPUT HEIGHT: " WITH NO ADVANCING.
+           ACCEPT SEQ10_T_HEIGHT.
+
+           COMPUTE SEQ10_T_AREA = 1/2 * SEQ10_T_BASE * SEQ10_T_HEIGHT.
+           DISPLAY "AREA: " SEQ10_T_AREA.
+
+           DISPLAY "INPUT SIDE A: " WITH NO ADVANCING.
+           ACCEPT SEQ10_SIDE_A.
+
+           DISPLAY "INPUT SIDE B: " WITH NO ADVANCING.
+           ACCEPT SEQ10_SIDE_B.
+           
+           DISPLAY "INPUT SIDE C: " WITH NO ADVANCING.
+           ACCEPT SEQ10_SIDE_C.
+           
+           COMPUTE SEQ10_T_PERI = 
+-              SEQ10_SIDE_A + SEQ10_SIDE_B + SEQ10_SIDE_C.
+           DISPLAY "PERIMETER: " SEQ10_T_PERI.
+           STOP RUN.
